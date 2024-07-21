@@ -62,6 +62,10 @@ The project is structured as follows:
     - `page.tsx`: The about page component.
   - `leaderboard/`: Contains the leaderboard page components.
     - `page.tsx`: The leaderboard page component.
+  - `bukc/`: Contains the bukc page components.
+    - `page.tsx`: The bukc page component.
+  - `socials/`: Contains the socials page components.
+    - `page.tsx`: The socials page component.
   - `global.scss`: Global SCSS styles.
   - `favicon.ico`: The favicon.
 - `public/`: Contains public assets.
@@ -70,6 +74,9 @@ The project is structured as follows:
   - `StudentUnion/` : Contains the Student Union logos.
   - `TeamSurrey/` : Contains the Team Surrey logos.
   - `UniOfSurrey/` : Contains the University of Surrey logos.
+  - `images/` : Contains the images from BUKC races and social events.
+    - `BUKC/` : Contains the images from BUKC races.
+    - `Socials/` : Contains the images of social events.
 
 The project uses [ESLint](https://eslint.org/).
 

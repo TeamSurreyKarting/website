@@ -20,7 +20,7 @@ export default function Footer() {
     }, [currentYear, developmentYear]);
 
     return (
-        <div className="z-40 h-fit md:px-40 px-10 w-full">
+        <div className="z-40 h-fit md:px-40 px-10 w-full pt-5 mt-4 bg-black bg-opacity-10">
 
             <div className="grid md:grid-cols-2 grid-cols-1 md:gap-0 gap-10">
 
@@ -29,7 +29,11 @@ export default function Footer() {
                     <div>
                         <h3 className="text-xl font-extrabold text-nile-blue-400">Team Surrey Karting Club</h3>
                         <p className="text-nile-blue-200 text-sm font-semibold my-2">
-                            ussu.karting@surrey.ac.uk
+                            <a
+                                href="mailto:ussu.karting@surrey.ac.uk"
+                            >
+                                ussu.karting@surrey.ac.uk
+                            </a>
                         </p>
                     </div>
                     <div className="flex md:flex-row flex-col items-center  gap-5">
