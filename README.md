@@ -88,6 +88,10 @@ The project uses [ESLint](https://eslint.org/).
 Each colour has a pallet variation of `50`, `100`, `200`, `300`, `400`, `500`, `600`, `700`, `800`, `900` and `950`.
 The details can be found in the tailwind.config.js file.
 
+### ERD
+
+
+
 ### Features
 
 - [x] Responsive design
