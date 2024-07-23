@@ -149,7 +149,7 @@ Track Table
 | track_location | VARCHAR   | NOT NULL                             |
 | track_type     | VARCHAR   | Must be either 'INDOOR' or 'OUTDOOR' |
 
-
+[Database Sql Script](db.sql)
 
 
 ### Features
