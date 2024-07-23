@@ -92,6 +92,66 @@ The details can be found in the tailwind.config.js file.
 
 ![DB ERD](TeamSurreyKartingERD.png)
 
+### Database Schema
+
+Users Table
+
+| Field Name    | Data Type | Constraints                               |
+|---------------|-----------|-------------------------------------------|
+| user_id       | INTEGER   | PRIMARY KEY                               |
+| FirstName     | VARCHAR   | NOT NULL                                  |
+| LastName      | VARCHAR   | 255                                       |
+| Date Of Birth | DATE      | CAN BE NULL                               |
+| Email         | VARCHAR   | 255                                       |
+| Membership    | VARCHAR   | Must be either 'Professional' or 'Social' |
+
+Leaderboard Table
+
+| Field Name   | Data Type | Constraints |
+|--------------|-----------|-------------|
+| lb_id        | INTEGER   | PRIMARY KEY |
+| user_id      | INTEGER   | FOREIGN KEY |
+| Total Points | INTEGER   | CAN BE NULL |
+
+User Statistics Table
+
+| Field Name  | Data Type | Constraints              |
+|-------------|-----------|--------------------------|
+| user_id     | INTEGER   | PRIMARY KEY, FOREIGN KEY |
+| race_id     | INTEGER   | PRIMARY KEY, FOREIGN KEY |
+| position_id | INTEGER   | FOREIGN KEY              |
+| Time        | TIME      | CAN BE NULL              |
+
+Position Table
+
+| Field Name  | Data Type | Constraints |
+|-------------|-----------|-------------|
+| position_id | INTEGER   | PRIMARY KEY |
+| position    | INTEGER   | NOT NULL    |
+| points      | INTEGER   | NOT NULL    |
+
+
+Race Table
+
+| Field Name  | Data Type | Constraints |
+|-------------|-----------|-------------|
+| race_id     | INTEGER   | PRIMARY KEY |
+| track_id    | INTEGER   | FOREIGN KEY |
+| race_date   | DATE      | NOT NULL    |
+| racer_count | INTEGER   | NOT NULL    |
+
+Track Table
+
+| Field Name     | Data Type | Constraints                          |
+|----------------|-----------|--------------------------------------|
+| track_id       | INTEGER   | PRIMARY KEY                          |
+| track_name     | VARCHAR   | NOT NULL                             |
+| track_location | VARCHAR   | NOT NULL                             |
+| track_type     | VARCHAR   | Must be either 'INDOOR' or 'OUTDOOR' |
+
+
+
+
 ### Features
 
 - [x] Responsive design
