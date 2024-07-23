@@ -99,10 +99,10 @@ Users Table
 | Field Name    | Data Type | Constraints                               |
 |---------------|-----------|-------------------------------------------|
 | user_id       | INTEGER   | PRIMARY KEY                               |
-| FirstName     | VARCHAR   | NOT NULL                                  |
+| FirstName     | VARCHAR   | NOT NULL, 255                             |
 | LastName      | VARCHAR   | 255                                       |
 | Date Of Birth | DATE      | CAN BE NULL                               |
-| Email         | VARCHAR   | 255                                       |
+| Email         | VARCHAR   | NOT NULL, 255                             |
 | Membership    | VARCHAR   | Must be either 'Professional' or 'Social' |
 
 Leaderboard Table
