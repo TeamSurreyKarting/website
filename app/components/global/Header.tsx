@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Header() {
 
@@ -15,15 +16,15 @@ export default function Header() {
                     />
                 </div>
                 <div className="flex gap-4 mx-3">
-                    <div
-                        className=" text-nile-blue-200 font-semibold transition-colors hover:text-nile-blue-400 hover: cursor-pointer">Home
-                    </div>
-                    <div
-                        className="text-nile-blue-200 font-semibold transition-colors hover:text-nile-blue-400 hover: cursor-pointer">Leaderboard
-                    </div>
-                    <div
-                        className="text-nile-blue-200 font-semibold transition-colors hover:text-nile-blue-400 hover: cursor-pointer">Contact
-                    </div>
+                    <Link href="/" className="text-nile-blue-200 font-semibold transition-colors hover:text-nile-blue-400 hover: cursor-pointer">
+                        Home
+                    </Link>
+                    <Link href="/leaderboard" className="text-nile-blue-200 font-semibold transition-colors hover:text-nile-blue-400 hover: cursor-pointer">
+                        Leaderboard
+                    </Link>
+                    <Link href="/bukc" className="text-nile-blue-200 font-semibold transition-colors hover:text-nile-blue-400 hover: cursor-pointer">
+                        BUKC
+                    </Link>
 
                 </div>
             </ div>
