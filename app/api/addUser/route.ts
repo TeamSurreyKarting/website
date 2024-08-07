@@ -22,7 +22,6 @@ export async function POST(req: Request) {
 
         return NextResponse.json({ message: 'User added successfully' }, { status: 200 });
     } catch (error) {
-        // @ts-ignore
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }

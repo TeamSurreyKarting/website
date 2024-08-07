@@ -17,7 +17,7 @@ export default function Card({ title, imageSrc, text, link }) {
 
             <div className="relative p-4 flex flex-col justify-between h-full bg-gradient-to-t from-black to-transparent">
 
-                <div className="absolute top-0 left-0 right-0 bg-lightning-gold-600 bg-opacity-60 text-white p-2">
+                <div className="absolute top-0 left-0 right-0 bg-lightning-gold-600 backdrop-blur-[2px] bg-opacity-60 text-white p-2">
                     <h2 className="text-lg font-bold">{title}</h2>
                 </div>
 
