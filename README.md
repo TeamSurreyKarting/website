@@ -48,7 +48,10 @@ This project uses [Next.js](https://nextjs.org/) and [TypeScript](https://www.ty
 The project is structured as follows:
 
 - `app/`: Contains the main application code.
+  - `api/`: Contains API routes.
   - `components/`: Contains Project Components.
+    - `auth/`: Contains authentication components.
+      - `[...nextauth]`: The authentication slug.
     - `forms/`: Contains form components.
     - `global/`: Contains global components.
       - `Header.tsx`: The header component.
@@ -60,12 +63,18 @@ The project is structured as follows:
     - `page.tsx`: The contact page component.
   - `about/`: Contains the about page components.
     - `page.tsx`: The about page component.
+  - `admin/`: Contains the admin page components.
+    - `page.tsx`: The admin page component.
+    - `layout.tsx`: The admin layout component.
   - `leaderboard/`: Contains the leaderboard page components.
     - `page.tsx`: The leaderboard page component.
+  - `lib/`: Contains utility functions.
   - `bukc/`: Contains the bukc page components.
     - `page.tsx`: The bukc page component.
   - `socials/`: Contains the socials page components.
-    - `page.tsx`: The socials page component.
+  - `utils/`: Contains utility functions.
+    - `db/`: Contains database functions.
+  - `page.tsx`: The socials page component.
   - `global.scss`: Global SCSS styles.
   - `favicon.ico`: The favicon.
 - `public/`: Contains public assets.
