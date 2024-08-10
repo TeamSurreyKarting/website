@@ -9,7 +9,7 @@ const AddUserForm = () => {
     const [data, setData] = useState({});
 
     return (
-        <form className="m-5" onSubmit={handleSubmit(async (values : FieldValues) => {
+        <form className="m-5" onSubmit={handleSubmit(async (values: FieldValues) => {
             AddUser(values)
             setData(values);
         })}>
@@ -44,9 +44,17 @@ const AddUserForm = () => {
                 />
             </div>
             <div>
+                <label>Password</label>
+                <input
+                    type="text"
+                    {...register('password')}
+                    required
+                />
+            </div>
+            <div>
                 <label>Membership</label>
                 <select
-                {...register('membership')}
+                    {...register('membership')}
                 >
                     <option value="">Select Membership</option>
                     <option value="Professional">Professional</option>

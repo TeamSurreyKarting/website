@@ -26,6 +26,7 @@ db.serialize(() => {
         LastName VARCHAR(255),
         DateOfBirth DATE,
         Email VARCHAR(255) NOT NULL,
+        Password VARCHAR(255) NOT NULL,
         Membership VARCHAR(12) CHECK (Membership IN ('Professional', 'Social'))
     );`, (err) => {
         if (err) {

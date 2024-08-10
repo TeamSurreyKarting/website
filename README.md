@@ -112,6 +112,7 @@ Users Table
 | LastName      | VARCHAR   | 255                                       |
 | Date Of Birth | DATE      | CAN BE NULL                               |
 | Email         | VARCHAR   | NOT NULL, 255                             |
+| Password      | VARCHAR   | NOT NULL, 255                             |
 | Membership    | VARCHAR   | Must be either 'Professional' or 'Social' |
 
 Leaderboard Table
