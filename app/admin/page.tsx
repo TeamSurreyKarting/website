@@ -28,6 +28,6 @@ export default async function Admin() {
             ;
     } else {
         console.log("Redirecting to Sign In Page, User Not Signed In");
-        redirect('/api/auth/signin?callbackUrl=/admin');
+        redirect('http://localhost:3000/api/auth/signin?callbackUrl=/admin');
     }
 }

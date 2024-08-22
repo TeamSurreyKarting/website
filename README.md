@@ -161,14 +161,17 @@ Track Table
 
 [Database Sql Script](db.sql)
 
-
+## Todo
 ### Features
 
 - [x] Responsive design
 - [x] Announcements
-- [x] Home Page
 - [x] About Page
 - [x] Contact Page
 - [x] Leaderboard Page
+- [x] Admin Page
+
+### Admin Page
+All curd operations for the db (leaderboard, tracks, users etc..)
 
 More features to be added as needed.

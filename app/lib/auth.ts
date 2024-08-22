@@ -35,16 +35,16 @@ export const authOptions: NextAuthOptions = {
     ],
 
     pages: {
-        signIn: '',
-        error: '',
+        signIn: '/auth/signin',
     },
 
     callbacks: {
         async redirect({ url, baseUrl }) {
-            if (url === baseUrl || url.startsWith(baseUrl)) {
-                return '/admin';
+            if (url.startsWith(baseUrl)) {
+                return url;
             }
-            return url;
+            return baseUrl;
         }
     }
+
 };
