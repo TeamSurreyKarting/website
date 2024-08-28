@@ -1,8 +1,6 @@
 name: Lint
 on:
   pull_request:
-  # Allow manually triggering the workflow.
-  workflow_dispatch:
 
 # Cancel all previous workflow runs for the same branch that have not yet completed.
 concurrency:
@@ -13,6 +11,8 @@ jobs:
   lint:
     name: Run ESLint
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -32,4 +32,3 @@ jobs:
         if: always()
         with:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-          report-json: 'eslint_report.json'
