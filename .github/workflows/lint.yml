@@ -37,4 +37,4 @@ jobs:
         if: always()
         with:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-          eslint_report: 'eslint_report.json'
+          report-json: 'eslint_report.json'
