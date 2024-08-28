@@ -1,0 +1,37 @@
+name: Lint with ESLint
+on:
+  push:
+  pull_request:
+  # Allow manually triggering the workflow.
+  workflow_dispatch:
+
+# Cancel all previous workflow runs for the same branch that have not yet completed.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: PHPCS check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Lint with ESLint
+        run: yarn lint --format json --output-file eslint_report.json
+
+      - name: Show Linting Results
+        uses: ataylorme/eslint-annotate-action@1.0.4
+        if: always()
+        with:
+          repo-token: '${{ secrets.GITHUB_TOKEN }}'
+          report-json: 'eslint_report.json'
