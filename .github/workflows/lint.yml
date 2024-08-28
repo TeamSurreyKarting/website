@@ -17,6 +17,7 @@ jobs:
       contents: read
       pull-requests: write
       repository-projects: read
+      statuses: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
