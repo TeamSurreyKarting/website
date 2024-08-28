@@ -1,0 +1,40 @@
+name: Lint
+on:
+  pull_request:
+
+# Cancel all previous workflow runs for the same branch that have not yet completed.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Run ESLint
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      checks: read
+      contents: read
+      pull-requests: write
+      repository-projects: read
+      statuses: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Lint with ESLint
+        run: yarn lint --format json --output-file eslint_report.json
+        continue-on-error: true
+
+      - name: Show Linting Results
+        uses: ataylorme/eslint-annotate-action@3.0.0
+        if: always()
+        with:
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+          report-json: 'eslint_report.json'
