@@ -1,6 +1,5 @@
-name: Lint with ESLint
+name: Lint
 on:
-  push:
   pull_request:
   # Allow manually triggering the workflow.
   workflow_dispatch:
@@ -12,26 +11,28 @@ concurrency:
 
 jobs:
   lint:
-    name: PHPCS check
+    name: Run ESLint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '22'
+        uses: actions/setup-node@v4
+
+      - name: Setup Yarn
+        uses: threeal/setup-yarn-action@v2.0.0
 
       - name: Install dependencies
         run: yarn install
 
       - name: Lint with ESLint
         run: yarn lint --format json --output-file eslint_report.json
+        continue-on-error: true
 
       - name: Show Linting Results
         uses: ataylorme/eslint-annotate-action@3.0.0
         if: always()
         with:
-          repo-token: '${{ secrets.GITHUB_TOKEN }}'
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
           report-json: 'eslint_report.json'
