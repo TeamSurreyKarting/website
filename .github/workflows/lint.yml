@@ -30,7 +30,7 @@ jobs:
         run: yarn lint --format json --output-file eslint_report.json
 
       - name: Show Linting Results
-        uses: ataylorme/eslint-annotate-action@1.0.4
+        uses: ataylorme/eslint-annotate-action@3.0.0
         if: always()
         with:
           repo-token: '${{ secrets.GITHUB_TOKEN }}'
