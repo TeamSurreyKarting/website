@@ -19,7 +19,7 @@ export default function Header() {
                     <Link href="/" className="text-nile-blue-200 font-semibold transition-colors hover:text-nile-blue-400 hover: cursor-pointer">
                         Home
                     </Link>
-                    <Link href="/leaderboard" className="text-nile-blue-200 font-semibold transition-colors hover:text-nile-blue-400 hover: cursor-pointer">
+                    <Link href="/race-league" className="text-nile-blue-200 font-semibold transition-colors hover:text-nile-blue-400 hover: cursor-pointer">
                         Leaderboard
                     </Link>
                     <Link href="/bukc" className="text-nile-blue-200 font-semibold transition-colors hover:text-nile-blue-400 hover: cursor-pointer">
