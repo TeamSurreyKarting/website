@@ -27,7 +27,7 @@ export default function Home() {
                           Allowing students to have fun and compete in a friendly environment with people who share a similar passion for motorsports.
                       </p>
 
-                      <button className="bg-nile-blue-200 w-32 text-center px-5 py-4 rounded-lg mt-5 font-semibold transition-colors hover:bg-nile-blue-100 ">
+                      <button className="bg-lightning-gold-400 w-32 text-center px-5 py-4 rounded-lg mt-5 font-semibold transition-colors hover:bg-nile-blue-100 ">
                           Join Now!
                       </button>
                   </div>

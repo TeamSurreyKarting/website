@@ -36,7 +36,7 @@ export default function Footer() {
                             </a>
                         </p>
                     </div>
-                    <div className="flex md:flex-row flex-col items-center  gap-5">
+                    <div className="flex flex-row items-center max-md:justify-center gap-5">
                         <Image
                             src="/StudentUnion/SSU_Logo_H_Left_White.svg"
                             alt="SSU"
@@ -64,9 +64,8 @@ export default function Footer() {
                 <div className="flex flex-col md:text-right text-center gap-4">
                     <div>
                         <h3 className="text-xl font-extrabold text-nile-blue-400">Information</h3>
-                        <Link href="#"
-                              className="text-sm font-semibold text-cyan-400 transition-colors hover:text-nile-blue-200">Privacy
-                            Policy</Link>
+                        <Link href="/"
+                              className="text-sm font-semibold text-cyan-400 transition-colors hover:text-nile-blue-200">Privacy Policy</Link>
                     </div>
                     <div>
                         <h4 className="text-md font-extrabold text-nile-blue-400">Found A Major Issue?</h4>

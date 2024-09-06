@@ -7,8 +7,8 @@ import Footer from "@/app/components/global/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Team Surrey Karting",
-  description: "Team Surrey Karting is a student-led karting team at the University of Surrey.",
+  title: "Team Surrey Karting Club",
+  description: "Team Surrey Karting Club is the University of Surrey's Karting Team.",
 };
 
 export default function RootLayout({

@@ -4,7 +4,8 @@
 
 
 body {
-  @apply bg-gradient-to-b from-nile-blue-950 to-nile-blue-400 bg-fixed min-h-screen;
+  //@apply bg-gradient-to-b from-nile-blue-950 to-nile-blue-400 bg-fixed min-h-screen;
+  @apply bg-nile-blue-950;
 }
 
 @layer utilities {
