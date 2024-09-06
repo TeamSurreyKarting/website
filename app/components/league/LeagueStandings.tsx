@@ -3,7 +3,7 @@ import {Enums} from "@/database.types";
 function backgroundColor(index: number) {
     switch (index) {
         case 0:
-            return 'bg-lightning-gold-500';
+            return 'bg-lightning-gold-600';
         case 1:
             return 'bg-slate-500';
         case 2:
@@ -28,7 +28,7 @@ export default function LeagueStandings({ standings }: { standings: Record<numbe
                         <span className={`${backgroundColor(index)} px-2 text-lg text-center font-semibold -skew-x-6 rounded-sm`}>
                             <div className={'skew-x-6'}>{index + 1}</div>
                         </span>
-                        <span className={`${backgroundColor(index)} px-2 text-lg -skew-x-6 rounded-sm`}>
+                        <span className={`${backgroundColor(index)} px-2 text-lg -skew-x-6 font-semibold rounded-sm`}>
                             <div className={'skew-x-6 px-4'}>{racer.name}</div>
                         </span>
                         <span className={`${backgroundColor(index)} px-2 text-lg font-semibold -skew-x-6 rounded-sm`}>
