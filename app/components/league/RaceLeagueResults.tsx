@@ -1,11 +1,14 @@
+'use server';
+
 import { createClient } from '@/app/utils/supabase/server';
+import Link from "next/link";
 
 export default async function RaceLeagueResults() {
     const supabase = createClient();
 
-    const timestampNow = new Date().toISOString();
     let { data: leagueData, error } = await supabase
-        .from('League').select('id, name')
+        .from('League')
+        .select('id, name');
 
     if (error) {
         return <div>Error: {error.message}</div>;
@@ -18,9 +21,9 @@ export default async function RaceLeagueResults() {
                 {
                     leagueData?.map((league) => (
                         <div key={league.id} className="flex items-center bg-nile-blue-200 p-3 rounded-md shadow-sm mb-2">
-                            <a href={`/league/${league.id}`}>
-                                <h3 className="text-lg font-semibold">{league.name}</h3>
-                            </a>
+                            <Link href={`/race-league/${league.id}`} className="text-lg font-semibold">
+                                {league.name}
+                            </Link>
                         </div>
                     ))
                 }

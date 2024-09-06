@@ -1,4 +1,4 @@
-import RaceLeagueResults from "@/app/components/ui/RaceLeagueResults";
+import RaceLeagueResults from "@/app/components/league/RaceLeagueResults";
 
 export default function RaceLeague() {
     return (
