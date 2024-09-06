@@ -97,8 +97,8 @@ export default async function Page({ params, searchParams }: { params: { id: num
 
     return (
         <div className={"bg-nile-blue-950/30 p-5 w-full md:w-[70%] text-nile-blue-100 mx-auto rounded-lg"}>
-            <h2 className={'text-2xl font-extrabold text-center mb-5'}>Race League: {leagueData.name}</h2>
-            <div className={'grid grid-cols-[30%_auto] gap-8 mr-4'}>
+            <h2 className={'text-2xl font-extrabold text-center mb-5'}>{leagueData.name}</h2>
+            <div className={'grid grid-cols-1 lg:grid-cols-[30%_auto] gap-8 mr-4'}>
                 <div id={'events'} className={'flex flex-col gap-2'}>
                     <Link href={'?view=overall'}
                           className={'bg-lightning-gold-400 text-black/80 rounded-md py-2 px-4 hover:bg-lightning-gold-500 duration-75'}>
