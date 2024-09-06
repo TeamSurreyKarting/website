@@ -20,7 +20,7 @@ export default function Header() {
                         Home
                     </Link>
                     <Link href="/race-league" className="text-nile-blue-200 font-semibold transition-colors hover:text-nile-blue-400 hover: cursor-pointer">
-                        Leaderboard
+                        Race League
                     </Link>
                     <Link href="/bukc" className="text-nile-blue-200 font-semibold transition-colors hover:text-nile-blue-400 hover: cursor-pointer">
                         BUKC
