@@ -36,10 +36,47 @@ export type Database = {
         }
         Relationships: []
       }
+      LeagueEntrant: {
+        Row: {
+          created_at: string
+          id: number
+          league_id: number
+          racer_id: number
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          league_id: number
+          racer_id: number
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          league_id?: number
+          racer_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "LeagueEntrant_league_id_fkey"
+            columns: ["league_id"]
+            isOneToOne: false
+            referencedRelation: "League"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "LeagueEntrant_racer_id_fkey"
+            columns: ["racer_id"]
+            isOneToOne: false
+            referencedRelation: "Racers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       RaceEvent: {
         Row: {
           arrival_time: string | null
           created_at: string
+          format: Database["public"]["Enums"]["race_format"]
           id: number
           league_id: number
           track_id: number | null
@@ -47,6 +84,7 @@ export type Database = {
         Insert: {
           arrival_time?: string | null
           created_at?: string
+          format?: Database["public"]["Enums"]["race_format"]
           id?: number
           league_id: number
           track_id?: number | null
@@ -54,6 +92,7 @@ export type Database = {
         Update: {
           arrival_time?: string | null
           created_at?: string
+          format?: Database["public"]["Enums"]["race_format"]
           id?: number
           league_id?: number
           track_id?: number | null
@@ -78,7 +117,6 @@ export type Database = {
       RaceEventSession: {
         Row: {
           created_at: string
-          format: Database["public"]["Enums"]["race_format"]
           id: number
           race_event_id: number | null
           session_end: string | null
@@ -86,7 +124,6 @@ export type Database = {
         }
         Insert: {
           created_at?: string
-          format: Database["public"]["Enums"]["race_format"]
           id?: number
           race_event_id?: number | null
           session_end?: string | null
@@ -94,7 +131,6 @@ export type Database = {
         }
         Update: {
           created_at?: string
-          format?: Database["public"]["Enums"]["race_format"]
           id?: number
           race_event_id?: number | null
           session_end?: string | null
@@ -113,41 +149,41 @@ export type Database = {
       RaceEventSessionResult: {
         Row: {
           created_at: string
+          event_session_id: number | null
           fastest_lap: number | null
           id: number
           racer_id: number
-          session_id: number | null
           total_time: number | null
         }
         Insert: {
           created_at?: string
+          event_session_id?: number | null
           fastest_lap?: number | null
           id?: number
           racer_id: number
-          session_id?: number | null
           total_time?: number | null
         }
         Update: {
           created_at?: string
+          event_session_id?: number | null
           fastest_lap?: number | null
           id?: number
           racer_id?: number
-          session_id?: number | null
           total_time?: number | null
         }
         Relationships: [
+          {
+            foreignKeyName: "RaceEventSessionResult_event_session_id_fkey"
+            columns: ["event_session_id"]
+            isOneToOne: false
+            referencedRelation: "RaceEventSession"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "RaceEventSessionResult_racer_id_fkey"
             columns: ["racer_id"]
             isOneToOne: false
             referencedRelation: "Racers"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "RaceEventSessionResult_session_id_fkey"
-            columns: ["session_id"]
-            isOneToOne: false
-            referencedRelation: "RaceEventSession"
             referencedColumns: ["id"]
           },
         ]
@@ -248,7 +284,23 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_fastest_laps: {
+        Args: {
+          for_event_id: number
+          for_league_id: number
+        }
+        Returns: {
+          event_session_result_id: number
+          event_session_id: number
+          event_id: number
+          racer_id: number
+          fastest_lap: number
+          total_time: number
+          first_name: string
+          last_name: string
+          experience_level: Database["public"]["Enums"]["experience_level"]
+        }[]
+      }
     }
     Enums: {
       experience_level: "rookie" | "experienced" | "graduate"
