@@ -4,10 +4,18 @@ import Search from "@/app/components/ui/Search";
 import Link from "next/link";
 import { Suspense } from "react";
 
-export default function Page() {
+export default function Page({ 
+    searchParams 
+    }: { 
+    searchParams?: {
+        query?: string;
+    };
+}) {
     const breadcrumbs = [
         { label: "Racers", href: "/admin/racers", active: true },
     ];
+
+    const query = searchParams?.query || "";
 
     return (
         <>
@@ -21,7 +29,7 @@ export default function Page() {
             <hr className="my-6" />
             <Search placeholder="Search Racers..." />
             <Suspense fallback={<div>Loading...</div>}>
-                <RacerList />
+                <RacerList filter={query} />
             </Suspense>
         </>
     );
