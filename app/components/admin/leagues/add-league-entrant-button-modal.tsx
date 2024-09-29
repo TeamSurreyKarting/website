@@ -36,6 +36,7 @@ export default function AddLeagueEntrant({ leagueId }: { leagueId: number }) {
                 Add Entrant
             </Button>
             <Modal isOpen={isLeagueEntrantModalVisible} onClose={() => setLeagueEntrantModalVisibility(false)}>
+                <h3 className="font-medium mb-4">Add Entrant</h3>
                 <form action={addLeagueEntrant}>
                     <input type="hidden" name="leagueId" value={leagueId} />
                     <div className="mb-4">
@@ -48,8 +49,13 @@ export default function AddLeagueEntrant({ leagueId }: { leagueId: number }) {
                                 <option key={racer.id} value={racer.id}>{racer.first_name} {racer.last_name}</option>
                             ))}
                         </select>
+                        <p className="mt-2 text-lightning-gold-500 text-sm font-light">Note that the dropdown will only show racers not currently entered into the league.</p>
                     </div>
-                    <Button type="submit" className="float-right" onClick={() => setLeagueEntrantModalVisibility(false)}>Add Entrant</Button>
+                    <div className="flex flex-row">
+                        <Button className="bg-nile-blue-700 border-2 border-lightning-gold-400" onClick={() => setLeagueEntrantModalVisibility(false)}>Close</Button>
+                        <div className="flex-grow" />
+                        <Button type="submit" onClick={() => setLeagueEntrantModalVisibility(false)}>Add</Button>
+                    </div>
                 </form>
             </Modal>
         </>

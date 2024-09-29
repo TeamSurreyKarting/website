@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import LeagueStandings from "@/app/components/league/LeagueStandings";
 import AddLeagueEntrant from "@/app/components/admin/leagues/add-league-entrant-button-modal";
+import AddEventSeries from "@/app/components/admin/leagues/add-league-race-event-button-modal";
 
 export default async function Page({ params }: { params: { id: number } }) {
     const id = params.id;
@@ -26,7 +27,11 @@ export default async function Page({ params }: { params: { id: number } }) {
         <>
             <Breadcrumbs breadcrumbs={breadcrumbs} />
             <hr className="my-6" />
-            <h2 className="text-xl mb-2">Event Series</h2>
+            <div className="flex mb-2 items-center">
+                <h2 className="text-xl mb-2">Event Series</h2>
+                <div className="flex-grow" />
+                <AddEventSeries leagueId={id} />
+            </div>
             <Suspense fallback={<div>Loading...</div>}>
                 <LeagueEventSeriesList leagueId={id} />
             </Suspense>

@@ -71,3 +71,53 @@ export async function addLeagueEntrant(formData: FormData) {
     revalidatePath(`/admin/leagues/${leagueId}`);
     redirect(`/admin/leagues/${leagueId}`);
 }
+
+export async function addRaceLeagueEvent(formData: FormData) {
+    // init supabase
+    const supabase = createServiceClient();
+
+    // insert into db
+    const leagueId = formData.get("leagueId") as string;
+    const trackId = formData.get("track") as string;
+    const arrivalTime = formData.get("arrivalTime") as string;
+
+    const arrivalTimeDate = new Date(arrivalTime);
+
+    const { data, error } = await supabase.from("RaceEvent").insert({
+        league_id: leagueId,
+        track_id: trackId,
+        arrival_time: arrivalTimeDate.toISOString(),
+    });
+
+    if (error) throw error;
+
+    revalidatePath(`/admin/leagues/${leagueId}`);
+    redirect(`/admin/leagues/${leagueId}`);
+}
+
+export async function addRaceLeagueEventSession(formData: FormData) {
+    // init supabase
+    const supabase = createServiceClient();
+
+    // pull data from form
+    const leagueId = formData.get("leagueId") as string;
+    const raceEventId = formData.get("raceEventId") as string;
+    const sessionStart = formData.get("sessionStart") as string;
+    const sessionEnd = formData.get("sessionEnd") as string;
+
+    // convert to date
+    const sessionStartDate = new Date(sessionStart);
+    const sessionEndDate = new Date(sessionEnd);
+
+    // insert into db
+    const { data, error } = await supabase.from("RaceEventSession").insert({
+        race_event_id: raceEventId,
+        session_start: sessionStartDate.toISOString(),
+        session_end: sessionEndDate.toISOString(),
+    });
+
+    if (error) throw error;
+
+    revalidatePath(`/admin/league/${leagueId}/results/${raceEventId}`);
+    redirect(`/admin/league/${leagueId}/results/${raceEventId}`);
+}
