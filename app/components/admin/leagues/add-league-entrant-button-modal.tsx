@@ -16,7 +16,7 @@ export default function AddLeagueEntrant({ leagueId }: { leagueId: number }) {
             const supabase = createClient();
 
             // Obtain racers
-            const { data, error } = await supabase.from("Racers").select();
+            const { data, error } = await supabase.rpc('racers_not_league_entrants', { requested_league_id: leagueId })
         
             // Check for errors
             if (error) {
@@ -43,7 +43,7 @@ export default function AddLeagueEntrant({ leagueId }: { leagueId: number }) {
                             Racer
                         </label>
                         <select id="racer" name="racer" required className="w-full px-3 py-2 bg-nile-blue-700 border border-gray-300 rounded-md shadow-sm focus:ring-lightning-gold-500 focus:border-lightning-gold-500 sm:text-sm">
-                            <option value="" selected disabled>Please select a racer</option>
+                            <option value="" selected disabled></option>
                             {racersData && racersData?.map((racer) => (
                                 <option key={racer.id} value={racer.id}>{racer.first_name} {racer.last_name}</option>
                             ))}

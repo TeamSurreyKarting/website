@@ -1,5 +1,6 @@
 import { clsx } from 'clsx';
 import Link from 'next/link';
+import { FaChevronRight } from "react-icons/fa6";
 
 interface Breadcrumb {
   label: string;
@@ -14,7 +15,7 @@ export default function Breadcrumbs({
 }) {
   return (
     <nav aria-label="Breadcrumb" className="mb-6 block">
-      <ol className={clsx( 'flex text-xl md:text-2xl')}>
+      <ol className={clsx( 'grid grid-cols-2 md:flex text-2xl')}>
         {breadcrumbs.map((breadcrumb, index) => (
           <li
             key={breadcrumb.href}
@@ -25,7 +26,7 @@ export default function Breadcrumbs({
           >
             <Link href={breadcrumb.href}>{breadcrumb.label}</Link>
             {index < breadcrumbs.length - 1 ? (
-              <span className="mx-3 inline-block">/</span>
+              <span className="mx-3 inline-block"><FaChevronRight className="text-sm" /></span>
             ) : null}
           </li>
         ))}
