@@ -1,5 +1,5 @@
-import { Tables, Enums } from "@/database.types";
-import { createAnonClient } from "@/app/utils/supabase/server";
+import { Enums } from "@/database.types";
+import { createClient } from "@/app/utils/supabase/client";
 
 export function allocatePoints(pointsAllocationMethod: string, position: number): number {
     switch (pointsAllocationMethod) {
@@ -53,28 +53,36 @@ export type LeagueStanding = {
 }
 
 export async function fetchLeagueStandings(leagueId: number): Promise<LeagueStanding[]> {
-    const supabase = createAnonClient();
+    const supabase = createClient();
 
     // Get the league
-    let { data: leagueData, error: leagueError } = await supabase.from('League').select('id, name, points_allocation_method').eq('id', leagueId).single();
+    let { data: leagueData, error: leagueError } = await supabase
+        .from('League')
+        .select('id, name, points_allocation_method')
+        .eq('id', leagueId)
+        .single();
     
     // Error check
     if (leagueError) throw leagueError;
-    if (!leagueData) return [];
+    if (!leagueData) throw new Error('League not found');
 
     // Initialise the overall standings
     let standings: Record<number, LeagueStanding> = {};
 
     // Get all race events for the league
-    const { data: leagueEvents, error: eventError } = await supabase.from('RaceEvent').select('id, format, League( id )').eq('League.id', leagueId);
+    const { data: leagueEvents, error: eventError } = await supabase
+        .from('RaceEvent')
+        .select('id, format, League( id )')
+        .eq('League.id', leagueId);
 
     // Error check
     if (eventError) throw eventError;
 
     // Optional safety check
-    if (!leagueEvents) return [];
+    if (!leagueEvents) throw new Error('No events found for league');
 
     // Fetch the results from each event and calculate points
+    // fixme: this is causing a heavy request load (inf loop)
     for (const event of leagueEvents) {
         // Ensure league id is present
         if (!event.League?.id) continue;
@@ -116,4 +124,13 @@ export async function fetchLeagueStandings(leagueId: number): Promise<LeagueStan
 
     // Return sorted standings
     return sortedStandings;
+}
+
+export async function fetchExperienceLevels(): Promise<string[]> {
+    const supabase = createClient();
+    const { data, error } = await supabase.rpc('get_types', { enum_type: 'experience_level'}).returns<string[]>();
+    
+    if (error) throw error;
+
+    return data;
 }
