@@ -28,9 +28,11 @@ export default async function Page({
             </div>
             <hr className="my-6" />
             <Search placeholder="Search Tracks..." />
-            <Suspense key={query} fallback={<div>Loading...</div>}>
-                <TrackList filter={query} />
-            </Suspense>
+            <div className="mt-4 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
+                <Suspense key={query} fallback={<div>Loading...</div>}>
+                    <TrackList filter={query} />
+                </Suspense>
+            </div>
         </>
     );
 }

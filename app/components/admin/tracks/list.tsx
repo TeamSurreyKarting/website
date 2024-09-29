@@ -10,9 +10,9 @@ export default async function TrackList({ filter }: { filter?: string }) {
         :
         await supabase.from("Tracks").select().ilike("name", `%${filter}%`);
 
-    return (
-        <div className="mt-4 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
-            {
+    return (tracks === null || tracks.length === 0) ? (
+            <p>No tracks found.</p>
+        ) : (
             tracks?.map((track) => (
                 <Link key={track.id} href={`/admin/tracks/${track.id}`}>
                     <div className="bg-nile-blue-800 hover:bg-lightning-gold-300 hover:text-black border-solid border-nile-blue-950 hover:border-lightning-gold-300 border-2 rounded-xl overflow-hidden">
@@ -24,7 +24,6 @@ export default async function TrackList({ filter }: { filter?: string }) {
                             </div>
                     </div>
                 </Link>
-            ))}
-        </div>
+            ))
     );
 }
