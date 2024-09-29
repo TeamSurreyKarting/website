@@ -7,12 +7,15 @@ import { Suspense } from "react";
 import LeagueStandings from "@/app/components/league/LeagueStandings";
 import AddLeagueEntrant from "@/app/components/admin/leagues/add-league-entrant-button-modal";
 import AddEventSeries from "@/app/components/admin/leagues/add-league-race-event-button-modal";
+import { fetchExperienceLevels, fetchLeagueStandings } from "@/app/utils/league/functions";
 
 export default async function Page({ params }: { params: { id: number } }) {
     const id = params.id;
 
     const supabase = createAnonClient();
     const league = await supabase.from("League").select().eq("id", id).single();
+    const experienceLevels = await fetchExperienceLevels();
+    const leagueStandings = await fetchLeagueStandings(id);
 
     if (!league) {
         notFound();
@@ -47,7 +50,8 @@ export default async function Page({ params }: { params: { id: number } }) {
             <hr className="my-6" />
             <h2 className="text-xl mb-2">Table</h2>
             <Suspense fallback={<div>Loading...</div>}>
-                <LeagueStandings leagueId={id} />
+                
+            <LeagueStandings leagueId={id} experienceLevels={experienceLevels} leagueStandings={leagueStandings} />
             </Suspense>
         </>
     );

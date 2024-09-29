@@ -4,8 +4,8 @@ import { createAnonClient } from '@/app/utils/supabase/server';
 import { Tables, Enums } from "@/database.types";
 import Link from "next/link";
 import LeagueStandings from "@/app/components/league/LeagueStandings";
-import { allocatePoints } from "@/app/utils/league/functions";
 import { data } from 'framer-motion/client';
+import { fetchExperienceLevels, fetchLeagueStandings } from '@/app/utils/league/functions';
 
 export default async function Page({ params, searchParams }: { params: { id: number }, searchParams: { [key: string]: string | string[] | undefined } }) {
     const leagueId = params.id;
@@ -24,6 +24,10 @@ export default async function Page({ params, searchParams }: { params: { id: num
 
     // Safety check
     if (eventsError) throw eventsError;
+
+    // Get experience levels and league standings
+    const experienceLevels = await fetchExperienceLevels();
+    const leagueStandings = await fetchLeagueStandings(leagueId);
 
     return (
         <div className={"bg-nile-blue-950/30 p-5 w-full md:w-[70%] text-nile-blue-100 mx-auto rounded-lg"}>
@@ -44,7 +48,7 @@ export default async function Page({ params, searchParams }: { params: { id: num
                         ))
                     }
                 </div>
-                <LeagueStandings leagueId={leagueId}/>
+                <LeagueStandings leagueId={leagueId} experienceLevels={experienceLevels} leagueStandings={leagueStandings} />
             </div>
         </div>
     );
