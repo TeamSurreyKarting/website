@@ -7,6 +7,31 @@ export type Json =
   | Json[]
 
 export type Database = {
+  graphql_public: {
+    Tables: {
+      [_ in never]: never
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      graphql: {
+        Args: {
+          operationName?: string
+          query?: string
+          variables?: Json
+          extensions?: Json
+        }
+        Returns: Json
+      }
+    }
+    Enums: {
+      [_ in never]: never
+    }
+    CompositeTypes: {
+      [_ in never]: never
+    }
+  }
   public: {
     Tables: {
       League: {
@@ -303,6 +328,12 @@ export type Database = {
           last_name: string
           experience_level: Database["public"]["Enums"]["experience_level"]
         }[]
+      }
+      get_types: {
+        Args: {
+          enum_type: string
+        }
+        Returns: Json
       }
       racers_not_league_entrants: {
         Args: {
