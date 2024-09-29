@@ -18,7 +18,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en">
             <body className={inter.className}>
-                <div className="flex h-screen flex-col md:flex-row md:overflow-hidden dark:bg-slate-800 dark:text-white">
+                <div className="flex h-screen h-svh flex-col md:flex-row md:overflow-hidden dark:bg-slate-800 dark:text-white">
                     <div className="w-full flex-none md:w-64">
                         <Nav />
                     </div>
