@@ -10,12 +10,14 @@ export default function Header() {
                     <path d="M4 12L16 12" stroke="#fff" strokeWidth="2" strokeLinecap="round"/>
                     <path d="M4 6L20 6" stroke="#fff" strokeWidth="2" strokeLinecap="round"/>
                 </svg>
-                <Image
-                    src="/TeamSurreyKarting/Team Surrey Karting Club Logo (Not Square).svg"
-                    alt="Logo"
-                    width={120}
-                    height={120}
-                />
+                <Link href="/">
+                    <Image
+                        src="/TeamSurreyKarting/Team Surrey Karting Club Logo (Not Square).svg"
+                        alt="Logo"
+                        width={120}
+                        height={120}
+                    />
+                </Link>
                 <div className={'w-8'}>
                     {/*  To make the logo exactly center lol  */}
                 </div>

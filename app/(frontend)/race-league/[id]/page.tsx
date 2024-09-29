@@ -4,8 +4,9 @@ import { createAnonClient } from '@/app/utils/supabase/server';
 import { Tables, Enums } from "@/database.types";
 import Link from "next/link";
 import LeagueStandings from "@/app/components/league/LeagueStandings";
-import { data } from 'framer-motion/client';
+import { data, label } from 'framer-motion/client';
 import { fetchExperienceLevels, fetchLeagueStandings } from '@/app/utils/league/functions';
+import Breadcrumbs from '@/app/components/ui/Breadcrumbs';
 
 export default async function Page({ params, searchParams }: { params: { id: number }, searchParams: { [key: string]: string | string[] | undefined } }) {
     const leagueId = params.id;
@@ -19,21 +20,23 @@ export default async function Page({ params, searchParams }: { params: { id: num
     if (leagueError) throw leagueError;
     if (data === null) return <div>League not found</div>;
 
-    // Get all race events for the league
-    const { data: leagueEvents, error: eventsError } = await supabase.from('RaceEvent').select('id, format, League(id)').eq('League.id', params.id).returns<Tables<'RaceEvent'>[]>();
-
-    // Safety check
-    if (eventsError) throw eventsError;
-
     // Get experience levels and league standings
     const experienceLevels = await fetchExperienceLevels();
     const leagueStandings = await fetchLeagueStandings(leagueId);
 
+    // Set breadcrumbs
+    const breadcrumbs = [
+        { label: 'Race Leagues', href: '/race-league' },
+        { label: leagueData?.name ?? '', href: `/race-league/${leagueId}`, active: true }
+    ];
+
     return (
-        <div className={"bg-nile-blue-950/30 p-5 w-full md:w-[70%] text-nile-blue-100 mx-auto rounded-lg"}>
-            <h2 className={'text-2xl font-extrabold text-center mb-5'}>{leagueData?.name}</h2>
-            <div className={'grid grid-cols-1 lg:grid-cols-[30%_auto] gap-8 mr-4'}>
-                <div id={'events'} className={'flex flex-col gap-2'}>
+        <div className={"p-5 w-full md:w-[70%] mx-auto rounded-lg"}>
+            {/* <h2 className={'text-2xl font-extrabold mb-5'}>{leagueData?.name}</h2> */}
+            <Breadcrumbs breadcrumbs={breadcrumbs} />
+            {/* todo: show results for each round as well as for whole league */}
+            {/* <div className={'grid grid-cols-1 lg:grid-cols-[30%_auto] gap-8 mr-4'}> */}
+                {/* <div id={'events'} className={'flex flex-col gap-2'}>
                     <Link href={'?view=overall'}
                           className={'bg-lightning-gold-400 text-black/80 rounded-md py-2 px-4 hover:bg-lightning-gold-500 duration-75'}>
                         Overall
@@ -47,9 +50,9 @@ export default async function Page({ params, searchParams }: { params: { id: num
                             </Link>
                         ))
                     }
-                </div>
-                <LeagueStandings leagueId={leagueId} experienceLevels={experienceLevels} leagueStandings={leagueStandings} />
-            </div>
+                </div> */}
+            {/* </div> */}
+            <LeagueStandings leagueId={leagueId} experienceLevels={experienceLevels} leagueStandings={leagueStandings} />
         </div>
     );
 }
