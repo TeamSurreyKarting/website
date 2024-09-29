@@ -14,7 +14,7 @@ export default async function LeagueStandings({ leagueId }: { leagueId: number }
     }
 
     return (
-        <div id={'standings'} className={'flex flex-col gap-2'}>
+        <div id={'standings'} className='flex flex-col gap-2 mx-2'>
             {
                 leagueStandings.map((standing, index) => (
                     <div key={standing.racer.id} className={'grid grid-cols-[2rem_1fr_0fr] gap-2 rounded-md shadow-sm'}>
