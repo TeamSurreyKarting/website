@@ -1,38 +1,58 @@
-import {Enums} from "@/database.types";
+import { fetchLeagueStandings } from "@/app/utils/league/functions";
+import clsx from "clsx";
 
-function backgroundColor(index: number) {
-    switch (index) {
-        case 0:
-            return 'bg-lightning-gold-600';
-        case 1:
-            return 'bg-slate-500';
-        case 2:
-            return 'bg-lightning-gold-800';
-        default:
-            return (index % 2 == 1) ? 'bg-nile-blue-400' : 'bg-nile-blue-300';
+export default async function LeagueStandings({ leagueId }: { leagueId: number }) {
+    // Fetch league standings
+    const leagueStandings = await fetchLeagueStandings(leagueId);
+
+    if (!leagueStandings) {
+        return <div className="text-center bg-nile-blue-700 rounded-md p-2">No standings available</div>;
     }
-}
 
-export default function LeagueStandings({ standings }: { standings: Record<number, { id: number, name: string, exp_level: Enums<'experience_level'>, points: number}> }) {
-    // Extract the racers from the standings object
-    const racers = Object.values(standings);
-
-    // Sort the racers by points
-    racers.sort((a, b) => b.points - a.points);
+    if (leagueStandings.length === 0) {
+        return <div className="text-center bg-nile-blue-700 rounded-md p-2">No standings available</div>;
+    }
 
     return (
         <div id={'standings'} className={'flex flex-col gap-2'}>
             {
-                racers.map((racer, index) => (
-                    <div key={racer.id} className={'grid grid-cols-[2rem_1fr_0fr] gap-2 rounded-md shadow-sm'}>
-                        <span className={`${backgroundColor(index)} px-2 text-lg text-center font-semibold -skew-x-6 rounded-sm`}>
+                leagueStandings.map((standing, index) => (
+                    <div key={standing.racer.id} className={'grid grid-cols-[2rem_1fr_0fr] gap-2 rounded-md shadow-sm'}>
+                        <span className={clsx(
+                                `px-2 text-lg text-center font-semibold -skew-x-6 rounded-sm`,
+                                {
+                                    'bg-lightning-gold-600': index === 0,
+                                    'bg-slate-500': index === 1,
+                                    'bg-lightning-gold-800': index === 2,
+                                    'bg-nile-blue-400': (index % 2 === 1) && !([0,1,2].includes(index)),
+                                    'bg-nile-blue-300': (index % 2 === 0) && !([0,1,2].includes(index)),
+                                }
+                            )}>
                             <div className={'skew-x-6'}>{index + 1}</div>
                         </span>
-                        <span className={`${backgroundColor(index)} px-2 text-lg -skew-x-6 font-semibold rounded-sm`}>
-                            <div className={'skew-x-6 px-4'}>{racer.name}</div>
+                        <span className={clsx(
+                                `px-2 text-lg -skew-x-6 font-semibold rounded-sm`,
+                                {
+                                    'bg-lightning-gold-600': index === 0,
+                                    'bg-slate-500': index === 1,
+                                    'bg-lightning-gold-800': index === 2,
+                                    'bg-nile-blue-400': (index % 2 === 1) && !([0,1,2].includes(index)),
+                                    'bg-nile-blue-300': (index % 2 === 0) && !([0,1,2].includes(index)),
+                                }
+                            )}>
+                            <div className={'skew-x-6 px-4'}>{standing.racer.name}</div>
                         </span>
-                        <span className={`${backgroundColor(index)} px-2 text-lg font-semibold -skew-x-6 rounded-sm`}>
-                            <div className={'skew-x-6'}>{racer.points}&nbsp;points</div>
+                        <span className={clsx(
+                                `px-2 text-lg text-center font-semibold -skew-x-6 rounded-sm`,
+                                {
+                                    'bg-lightning-gold-600': index === 0,
+                                    'bg-slate-500': index === 1,
+                                    'bg-lightning-gold-800': index === 2,
+                                    'bg-nile-blue-400': (index % 2 === 1) && !([0,1,2].includes(index)),
+                                    'bg-nile-blue-300': (index % 2 === 0) && !([0,1,2].includes(index)),
+                                }
+                            )}>
+                            <div className={'skew-x-6'}>{standing.points}&nbsp;points</div>
                         </span>
                     </div>
                 ))

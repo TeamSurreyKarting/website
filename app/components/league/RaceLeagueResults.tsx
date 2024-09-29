@@ -1,10 +1,10 @@
 'use server';
 
-import { createClient } from '@/app/utils/supabase/server';
+import { createAnonClient } from '@/app/utils/supabase/server';
 import Link from "next/link";
 
 export default async function RaceLeagueResults() {
-    const supabase = createClient();
+    const supabase = createAnonClient();
 
     let { data: leagueData, error } = await supabase
         .from('League')

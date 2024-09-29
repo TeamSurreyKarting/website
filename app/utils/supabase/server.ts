@@ -1,8 +1,9 @@
+import { createClient } from '@supabase/supabase-js'
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import { Database } from "@/database.types";
 
-export function createClient() {
+export function createAnonClient() {
     const cookieStore = cookies()
 
     return createServerClient<Database>(
@@ -27,4 +28,11 @@ export function createClient() {
             },
         }
     )
+}
+
+export function createServiceClient() {
+    return createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY!
+    );
 }
