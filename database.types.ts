@@ -7,6 +7,31 @@ export type Json =
   | Json[]
 
 export type Database = {
+  graphql_public: {
+    Tables: {
+      [_ in never]: never
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      graphql: {
+        Args: {
+          operationName?: string
+          query?: string
+          variables?: Json
+          extensions?: Json
+        }
+        Returns: Json
+      }
+    }
+    Enums: {
+      [_ in never]: never
+    }
+    CompositeTypes: {
+      [_ in never]: never
+    }
+  }
   public: {
     Tables: {
       League: {
@@ -263,18 +288,21 @@ export type Database = {
           created_at: string
           id: number
           name: string | null
+          track_map_upload_path: string | null
           type: Database["public"]["Enums"]["track_type"] | null
         }
         Insert: {
           created_at?: string
           id?: number
           name?: string | null
+          track_map_upload_path?: string | null
           type?: Database["public"]["Enums"]["track_type"] | null
         }
         Update: {
           created_at?: string
           id?: number
           name?: string | null
+          track_map_upload_path?: string | null
           type?: Database["public"]["Enums"]["track_type"] | null
         }
         Relationships: []
@@ -298,6 +326,20 @@ export type Database = {
           total_time: number
           first_name: string
           last_name: string
+          experience_level: Database["public"]["Enums"]["experience_level"]
+        }[]
+      }
+      racers_not_league_entrants: {
+        Args: {
+          league_id: number
+        }
+        Returns: {
+          id: number
+          user_id: string
+          first_name: string
+          last_name: string
+          created_at: string
+          student_id_expiry: string
           experience_level: Database["public"]["Enums"]["experience_level"]
         }[]
       }
