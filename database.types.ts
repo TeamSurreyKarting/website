@@ -250,6 +250,7 @@ export type Database = {
           created_at: string
           experience_level: Database["public"]["Enums"]["experience_level"]
           first_name: string | null
+          full_name: string | null
           id: number
           last_name: string | null
           student_id_expiry: string | null
@@ -259,6 +260,7 @@ export type Database = {
           created_at?: string
           experience_level?: Database["public"]["Enums"]["experience_level"]
           first_name?: string | null
+          full_name?: string | null
           id?: number
           last_name?: string | null
           student_id_expiry?: string | null
@@ -268,6 +270,7 @@ export type Database = {
           created_at?: string
           experience_level?: Database["public"]["Enums"]["experience_level"]
           first_name?: string | null
+          full_name?: string | null
           id?: number
           last_name?: string | null
           student_id_expiry?: string | null
