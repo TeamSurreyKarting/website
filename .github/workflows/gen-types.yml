@@ -22,7 +22,7 @@ jobs:
       - uses: actions/setup-node@v2.1.5
         with:
           node-version: 22
-      - run: yarn update-types
+      - run: npx supabase gen types --lang=typescript --project-id \"$PROJECT_ID\" --schema public > database.types.ts
       - name: check for file changes
         id: git_status
         run: |
