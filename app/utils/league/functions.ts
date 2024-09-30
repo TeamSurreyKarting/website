@@ -73,7 +73,8 @@ export async function fetchLeagueStandings(leagueId: number): Promise<LeagueStan
     const { data: leagueEvents, error: eventError } = await supabase
         .from('RaceEvent')
         .select('id, format, League( id )')
-        .eq('League.id', leagueId);
+        .eq('League.id', leagueId)
+        .returns<{ id: number, format: string, League: { id: number } }[]>();
 
     // Error check
     if (eventError) throw eventError;
@@ -85,7 +86,7 @@ export async function fetchLeagueStandings(leagueId: number): Promise<LeagueStan
     // fixme: this is causing a heavy request load (inf loop)
     for (const event of leagueEvents) {
         // Ensure league id is present
-        if (!event.League?.id) continue;
+        if (!event.League.id) continue;
 
         // Fetch results for event
         let { data, error } = await supabase
