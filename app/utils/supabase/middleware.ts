@@ -35,14 +35,7 @@ export async function updateSession(request: NextRequest) {
         data: { user },
       } = await supabase.auth.getUser()
 
-    console.log('.startsWith(admin)', request.nextUrl.pathname.startsWith('/admin'))
-    console.log('!user', !user)
-    console.log('if', !user && (
-        request.nextUrl.pathname === '/auth' ||
-        request.nextUrl.pathname.startsWith('/admin')
-    ))
-    
-      if (
+    if (
         !user && (
             request.nextUrl.pathname === '/auth' ||
             request.nextUrl.pathname.startsWith('/admin')
