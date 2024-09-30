@@ -1,19 +1,3 @@
-// import Image from "next/image";
-// import About from "@/app/components/homepage/About";
-// import Achievements from "@/app/components/homepage/Achievements";
-// import Hero from "@/app/components/homepage/Hero";
-// import What from "@/app/components/homepage/What";
-
-// export default function Home() {
-//   return (
-//       <main className="">
-//           <Hero />
-//           <About />
-//           <What />
-//           <Achievements />
-//       </main>
-//   );
-// }
 import Image from "next/image";
 import Hero from "@/app/components/ui/Hero";
 import Card from "@/app/components/ui/Card";
@@ -38,7 +22,7 @@ export default function Home() {
                   <div className="flex flex-col justify-center">
                       <h2 className="text-3xl font-bold text-white mb-4">About Us</h2>
                       <p className="text-lg text-gray-200 leading-relaxed">
-                          Team Surrey Karting is the University of Surrey's official karting club. We are a group of
+                          Team Surrey Karting is the University of Surrey&apos;s official karting club. We are a group of
                           students passionate about motorsports and karting. We aim to provide a space for students to come and participate in karting events, socials and competitions.
                           Allowing students to have fun and compete in a friendly environment with people who share a similar passion for motorsports.
                       </p>
