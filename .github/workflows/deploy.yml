@@ -63,4 +63,4 @@ jobs:
           app-name: 'karting-club'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4EDECFA74DDB4ECF8967918D93635CE0 }}
-          package: ./build/standalone
+          package: .
