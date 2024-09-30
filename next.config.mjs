@@ -4,6 +4,9 @@ const nextConfig = {
     images: {
         domains: ['dummyimage.com'],
     },
+    // experimental: {
+    //     ppr: 'incremental',
+    // }
 };
 
 export default nextConfig;
