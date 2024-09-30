@@ -4,6 +4,7 @@ on:
   schedule:
     # sets the action to run daily. You can modify this to run the action more or less frequently
     - cron: '0 0 * * *'
+  workflow_dispatch:
 
 jobs:
   update:
@@ -11,7 +12,7 @@ jobs:
     permissions:
       contents: write
     env:
-      SUPABASE_ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
       PROJECT_ID: ${{ secrets.PROJECT_ID }}
     steps:
       - uses: actions/checkout@v2
@@ -32,7 +33,7 @@ jobs:
           git add database.types.ts
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git commit -m "Update database types" -a
+          git commit -m "Update db types" -a
       - name: Push changes
         if: ${{contains(steps.git_status.outputs.status, ' ')}}
         uses: ad-m/github-push-action@master
