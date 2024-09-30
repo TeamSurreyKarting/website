@@ -2,7 +2,6 @@
 const nextConfig = {
     output: "standalone",
     reactStrictMode: true,
-    distDir: "build",
     images: {
         domains: ['dummyimage.com'],
     },
