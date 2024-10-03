@@ -13,8 +13,6 @@
     "@supabase/ssr": "^0.5.1",
     "@supabase/supabase-js": "^2.45.3",
     "@types/bcrypt": "^5.0.2",
-    "@typescript-eslint/eslint-plugin": "^8.8.0",
-    "@typescript-eslint/parser": "^8.8.0",
     "bcrypt": "^5.1.1",
     "chart.js": "^4.4.3",
     "clsx": "^2.1.1",
