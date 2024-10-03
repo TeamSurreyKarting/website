@@ -73,7 +73,6 @@ jobs:
                 source: ./prd-artifact
                 target: /srv/www
                 overwrite: true
-                sudo: true
 
             - name: Restart nginx and node
               uses: appleboy/ssh-action@v1.0.3
