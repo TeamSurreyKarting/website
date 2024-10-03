@@ -37,6 +37,7 @@ jobs:
               uses: actions/upload-artifact@v2
               with:
                 name: build
+                path: .next/standalone
     
     deploy:
         needs: build
@@ -47,7 +48,7 @@ jobs:
               uses: actions/download-artifact@v2
               with:
                 name: build
-                path: .
+                path: .next/standalone
 
             - name: Stop node server and remove old files
               uses: appleboy/ssh-action@v1.0.3
