@@ -82,7 +82,7 @@ jobs:
                 key: ${{ secrets.AZ_VM_PEM }}
                 username: azureuser
                 port: 22
-                source: ./prd-artifact
+                source: ./prd-artifact/**/*
                 target: /srv/www
                 overwrite: true
 
