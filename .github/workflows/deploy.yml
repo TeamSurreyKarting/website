@@ -33,6 +33,9 @@ jobs:
             # - name: Test
             #   run: yarn test
             
+            - name: show files
+              run: pwd && ls -a
+            
             - name: Archive production artifacts
               uses: actions/upload-artifact@v4.4.0
               with:
