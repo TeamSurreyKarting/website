@@ -60,7 +60,7 @@ jobs:
                 name: karting-website-prd-artifact
                 path: ./prd-artifact
 
-            - name: Stop node server and remove old files
+            - name: Stop nextjs and remove old files
               uses: appleboy/ssh-action@v1.0.3
               with:
                 host: ${{ secrets.AZ_VM_IP }}
@@ -68,7 +68,7 @@ jobs:
                 username: azureuser
                 port: 22
                 script: |
-                    systemctl stop node
+                    sudo systemctl stop nextjs.service
                     sudo rm -rf /srv/www/*
 
             - name: Copy artifact to server
@@ -82,6 +82,17 @@ jobs:
                 target: /srv/www
                 overwrite: true
 
+            - name: Move artifact to correct location
+              uses: appleboy/ssh-action@v1.0.3
+              with:
+                host: ${{ secrets.AZ_VM_IP }}
+                key: ${{ secrets.AZ_VM_PEM }}
+                username: azureuser
+                port: 22
+                script: |
+                    mv /srv/www/prd-artifact/.next /srv/www
+                    rm -rf /srv/www/prd-artifact
+
             - name: Write .env file
               uses: appleboy/ssh-action@v1.0.3
               with:
@@ -92,7 +103,7 @@ jobs:
                 script: |
                     echo "NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }};NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }};NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY }};PROJECT_ID=${{ secrets.SUPABASE_PROJECT_ID }}" > /srv/www/.env
 
-            - name: Restart nginx and node
+            - name: Restart nginx and nextjs
               uses: appleboy/ssh-action@v1.0.3
               with:
                 host: ${{ secrets.AZ_VM_IP }}
@@ -100,8 +111,8 @@ jobs:
                 username: azureuser
                 port: 22
                 script: |
-                    systemctl restart nginx
-                    systemctl start node
+                    sudo systemctl restart nginx
+                    sudo systemctl start nextjs.service
 
     close_pr:
         needs: build
