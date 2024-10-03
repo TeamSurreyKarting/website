@@ -90,7 +90,7 @@ jobs:
                 username: azureuser
                 port: 22
                 script: |
-                    mv /srv/www/prd-artifact/.next /srv/www
+                    mv /srv/www/prd-artifact/ /srv/www
                     rm -rf /srv/www/prd-artifact
 
             - name: Write .env file
