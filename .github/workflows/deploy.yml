@@ -35,12 +35,17 @@ jobs:
             
             # - name: show files
             #   run: pwd && ls -a
+
+            - name: Rename .next folder
+              run: |
+                mkdir prd-artifact
+                mv .next prd-artifact
             
             - name: Archive production artifacts
               uses: actions/upload-artifact@v4.4.0
               with:
                 name: karting-website-prd-artifact
-                path: ./.next/**/*
+                path: ./prd-artifact
                 if-no-files-found: error
                 overwrite: true
     
@@ -76,6 +81,16 @@ jobs:
                 source: ./prd-artifact
                 target: /srv/www
                 overwrite: true
+
+            - name: Write .env file
+              uses: appleboy/ssh-action@v1.0.3
+              with:
+                host: ${{ secrets.AZ_VM_IP }}
+                key: ${{ secrets.AZ_VM_PEM }}
+                username: azureuser
+                port: 22
+                script: |
+                    echo "NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }};NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }};NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY }};PROJECT_ID=${{ secrets.SUPABASE_PROJECT_ID }}" > /srv/www/.env
 
             - name: Restart nginx and node
               uses: appleboy/ssh-action@v1.0.3
