@@ -3,7 +3,12 @@ const nextConfig = {
     output: "standalone",
     reactStrictMode: true,
     images: {
-        domains: ['dummyimage.com'],
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'dummyimage.com'
+            }
+        ]
     },
     // experimental: {
     //     ppr: 'incremental',
