@@ -57,24 +57,18 @@ jobs:
               with:
                 name: karting-website-standalone
 
-            - name: List files
-              run: ls -la
-
-            - name: Obtain .pem file
-              run: echo "${{ secrets.AZ_VM_PEM }}" > az.pem
-
             - name: Copy artifact to server
-              run: |
-                scp -i az.pem -r ./ azureuser@${{ secrets.AZ_VM_IP }}:~/www
-              # uses: appleboy/scp-action@v0.1.7
-              # with:
-              #   host: ${{ secrets.AZ_VM_IP }}
-              #   key: ${{ secrets.AZ_VM_PEM }}
-              #   username: azureuser
-              #   port: 22
-              #   source: ./prd-artifact/standalone/*
-              #   target: ~/www
-              #   overwrite: true
+              # run: |
+              #   scp -i az.pem -r ./karting-website-standalone azureuser@${{ secrets.AZ_VM_IP }}:~/www
+              uses: appleboy/scp-action@v0.1.7
+              with:
+                host: ${{ secrets.AZ_VM_IP }}
+                key: ${{ secrets.AZ_VM_PEM }}
+                username: azureuser
+                port: 22
+                source: .
+                target: ~/www
+                overwrite: true
 
             - name: Move artifact to correct location
               uses: appleboy/ssh-action@v1.0.3
