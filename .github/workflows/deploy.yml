@@ -70,6 +70,17 @@ jobs:
                 target: ~/www
                 overwrite: true
 
+            - name: Write .env file
+              uses: appleboy/ssh-action@v1.0.3
+              with:
+                host: ${{ secrets.AZ_VM_IP }}
+                key: ${{ secrets.AZ_VM_PEM }}
+                username: azureuser
+                port: 22
+                script: |
+                    sudo echo "NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }};NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }};NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY }};PROJECT_ID=${{ secrets.SUPABASE_PROJECT_ID }}" > ~/www/.env
+
+
             - name: Move artifact to correct location
               uses: appleboy/ssh-action@v1.0.3
               with:
@@ -80,16 +91,6 @@ jobs:
                 script: |
                     sudo mv -rf ~/www/* /srv/www
                     sudo rm -rf ~/www
-
-            - name: Write .env file
-              uses: appleboy/ssh-action@v1.0.3
-              with:
-                host: ${{ secrets.AZ_VM_IP }}
-                key: ${{ secrets.AZ_VM_PEM }}
-                username: azureuser
-                port: 22
-                script: |
-                    echo "NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }};NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }};NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY }};PROJECT_ID=${{ secrets.SUPABASE_PROJECT_ID }}" > /srv/www/.env
 
             - name: Restart nextjs process
               uses: appleboy/ssh-action@v1.0.3
