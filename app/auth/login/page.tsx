@@ -3,7 +3,7 @@
 import { createClient } from '@/app/utils/supabase/client';
 import Image from 'next/image'
 import { useState } from 'react';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { AiOutlineLoading } from "react-icons/ai";
 
 export default function LoginPage() {
@@ -28,7 +28,7 @@ export default function LoginPage() {
             return;
         }
 
-        redirect('/admin');
+        useRouter().push('/admin');
     }
 
     return (
