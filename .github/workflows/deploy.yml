@@ -34,12 +34,12 @@ jobs:
             - name: Build
               run: yarn build:standalone
 
-            - name: Rename .next folder
+            - name: Move build items for artifacting into folder
               run: |
                 mkdir prd-artifact
                 mv .next/* prd-artifact
             
-            - name: Archive production artifacts
+            - name: Upload production artifacts
               uses: actions/upload-artifact@v4.4.0
               with:
                 name: karting-website-prd-artifact
@@ -58,16 +58,6 @@ jobs:
                 name: karting-website-prd-artifact
                 path: .
 
-            - name: Stop nextjs process
-              uses: appleboy/ssh-action@v1.0.3
-              with:
-                host: ${{ secrets.AZ_VM_IP }}
-                key: ${{ secrets.AZ_VM_PEM }}
-                username: azureuser
-                port: 22
-                script: |
-                    sudo pm2 stop "nextjs"
-
             - name: Copy artifact to server
               uses: appleboy/scp-action@v0.1.7
               with:
@@ -75,8 +65,8 @@ jobs:
                 key: ${{ secrets.AZ_VM_PEM }}
                 username: azureuser
                 port: 22
-                source: ./prd-artifact
-                target: ~
+                source: ./prd-artifact/standalone/*
+                target: ~/www
                 overwrite: true
 
             - name: Move artifact to correct location
@@ -87,8 +77,8 @@ jobs:
                 username: azureuser
                 port: 22
                 script: |
-                    mv ~/prd-artifact/* /srv/www
-                    rm -rf /srv/www/prd-artifact
+                    sudo mv -rf ~/www/* /srv/www
+                    sudo rm -rf ~/www
 
             - name: Write .env file
               uses: appleboy/ssh-action@v1.0.3
@@ -108,7 +98,7 @@ jobs:
                 username: azureuser
                 port: 22
                 script: |
-                    sudo pm2 start "node /srv/www/standalone/server.js" --name "nextjs"
+                    pm2 start "node /srv/www/standalone/server.js" --name "nextjs"
 
     close_pr:
         needs: build
