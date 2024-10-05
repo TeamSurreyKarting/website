@@ -89,6 +89,8 @@ jobs:
                 username: azureuser
                 port: 22
                 script: |
+                    sudo rm -r /srv/www/*
+                    sudo mkdir -p /srv/www
                     sudo mv -f ~/www/* /srv/www
                     sudo rm -r ~/www
 
