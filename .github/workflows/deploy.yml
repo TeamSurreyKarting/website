@@ -34,12 +34,6 @@ jobs:
             - name: Build
               run: yarn build
 
-            # - name: Test
-            #   run: yarn test
-            
-            # - name: show files
-            #   run: pwd && ls -a
-
             - name: Rename .next folder
               run: |
                 mkdir prd-artifact
@@ -94,7 +88,7 @@ jobs:
                 username: azureuser
                 port: 22
                 script: |
-                    mv /srv/www/prd-artifact/ /srv/www
+                    mv /srv/www/prd-artifact/* /srv/www
                     rm -rf /srv/www/prd-artifact
 
             - name: Write .env file
