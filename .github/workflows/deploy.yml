@@ -100,7 +100,7 @@ jobs:
                 username: azureuser
                 port: 22
                 script: |
-                    pm2 start "node /srv/www/standalone/server.js" --name "nextjs"
+                    pm2 start "node /srv/www/server.js" --name "nextjs"
 
     close_pr:
         needs: build
