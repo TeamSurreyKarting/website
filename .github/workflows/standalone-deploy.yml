@@ -119,7 +119,7 @@ jobs:
                 username: azureuser
                 port: 22
                 script: |
-                    sudo pm2 start "yarn start" --name "nextjs"
+                  pm2 start "node /srv/www/server.js" --name "nextjs"
 
     close_pr:
         needs: build
