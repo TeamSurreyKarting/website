@@ -32,7 +32,7 @@ jobs:
               run: yarn install --frozen-lockfile
 
             - name: Build
-              run: yarn build:standalone
+              run: yarn build
 
             - name: Move standalone build items for artifacting
               run: |
@@ -44,8 +44,8 @@ jobs:
             - name: Upload standalone artifacts
               uses: actions/upload-artifact@v4.4.0
               with:
-                name: karting-website-standalone
-                path: ./prd-artifact
+                name: karting-website-build
+                path: .
                 if-no-files-found: error
                 overwrite: true
     
@@ -57,11 +57,9 @@ jobs:
             - name: Obtain production artifact
               uses: actions/download-artifact@v4.1.8
               with:
-                name: karting-website-standalone
+                name: karting-website-build
 
             - name: Copy artifact to server
-              # run: |
-              #   scp -i az.pem -r ./karting-website-standalone azureuser@${{ secrets.AZ_VM_IP }}:~/www
               uses: appleboy/scp-action@v0.1.7
               with:
                 host: ${{ secrets.AZ_VM_IP }}
@@ -94,8 +92,8 @@ jobs:
                     sudo rm -r /srv/www/*
                     sudo mkdir -p /srv/www
                     sudo mv -f ~/www/* /srv/www
+                    sudo mv -f ~/www/.next/* /srv/www/.next
                     sudo mv -f ~/www/.env /srv/www/.env
-                    sudo mv -f ~/www/.next /srv/www/.next
                     sudo rm -r ~/www
 
             - name: Restart nextjs process
@@ -106,7 +104,7 @@ jobs:
                 username: azureuser
                 port: 22
                 script: |
-                    sudo pm2 start "node /srv/www/server.js" --name "nextjs"
+                    sudo pm2 start "yarn start" --name "nextjs"
 
     close_pr:
         needs: build
