@@ -41,12 +41,13 @@ jobs:
             #     mv .next/standalone/* prd-artifact
             #     mv .next/standalone/.next/* prd-artifact/.next
             
-            - name: Upload standalone artifacts
+            - name: Upload artifacts
               uses: actions/upload-artifact@v4.4.0
               with:
                 name: karting-website-build
                 path: .
                 if-no-files-found: error
+                include-hidden-files: true
                 overwrite: true
     
     deploy:
