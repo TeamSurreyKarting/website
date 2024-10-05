@@ -24,7 +24,7 @@ jobs:
               uses: actions/checkout@v4
 
             - name: Set up Node.js
-              uses: actions/setup-node@v2
+              uses: actions/setup-node@v4
               with:
                 node-version: '20'
 
@@ -56,18 +56,26 @@ jobs:
               uses: actions/download-artifact@v4.1.8
               with:
                 name: karting-website-prd-artifact
-                path: .
+                pattern: prd-artifact/standalone/*
+
+            - name: List files
+              run: ls -la
+
+            - name: Obtain .pem file
+              run: echo "${{ secrets.AZ_VM_PEM }}" > az.pem
 
             - name: Copy artifact to server
-              uses: appleboy/scp-action@v0.1.7
-              with:
-                host: ${{ secrets.AZ_VM_IP }}
-                key: ${{ secrets.AZ_VM_PEM }}
-                username: azureuser
-                port: 22
-                source: ./prd-artifact/standalone/*
-                target: ~/www
-                overwrite: true
+              run: |
+                scp -i az.pem -r ./ azureuser@${{ secrets.AZ_VM_IP }}:~/www
+              # uses: appleboy/scp-action@v0.1.7
+              # with:
+              #   host: ${{ secrets.AZ_VM_IP }}
+              #   key: ${{ secrets.AZ_VM_PEM }}
+              #   username: azureuser
+              #   port: 22
+              #   source: ./prd-artifact/standalone/*
+              #   target: ~/www
+              #   overwrite: true
 
             - name: Move artifact to correct location
               uses: appleboy/ssh-action@v1.0.3
