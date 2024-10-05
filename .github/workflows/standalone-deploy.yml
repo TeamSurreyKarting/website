@@ -1,14 +1,14 @@
-name: Deploy to Azure VM
+name: Deploy to Azure VM (Standalone Mode)
 
 on:
     workflow_dispatch:
-    push:
-        branches:
-            - main
-    pull_request:
-        types: [opened, synchronize, reopened, closed]
-        branches:
-            - main
+    # push:
+    #     branches:
+    #         - main
+    # pull_request:
+    #     types: [opened, synchronize, reopened, closed]
+    #     branches:
+    #         - main
 
 concurrency:
     group: deploy-${{ github.ref }}
@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
     build:
-        if: github.event_name == 'workflow_dispatch' || github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+        # if: github.event_name == 'workflow_dispatch' || github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
         runs-on: ubuntu-latest
         name: Build
         steps:
@@ -32,13 +32,18 @@ jobs:
               run: yarn install --frozen-lockfile
 
             - name: Build
-              run: yarn build
+              run: yarn build:standalone
+
+            - name: Move standalone build items for artifacting
+              run: |
+                mkdir prd-artifact
+                mv .next/standalone/* prd-artifact
             
             - name: Upload artifacts
               uses: actions/upload-artifact@v4.4.0
               with:
                 name: karting-website-build
-                path: .
+                path: ./prd-artifact
                 if-no-files-found: error
                 include-hidden-files: true
                 overwrite: true
@@ -86,7 +91,6 @@ jobs:
                     sudo rm -r /srv/www/*
                     sudo mkdir -p /srv/www
                     sudo mv -f ~/www/* /srv/www
-                    sudo mv -f ~/www/.next/* /srv/www/.next
                     sudo mv -f ~/www/.env /srv/www/.env
                     sudo rm -r ~/www
 
