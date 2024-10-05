@@ -34,15 +34,15 @@ jobs:
             - name: Build
               run: yarn build:standalone
 
-            - name: Move build items for artifacting into folder
+            - name: Move standalone build items for artifacting
               run: |
                 mkdir prd-artifact
-                mv .next/* prd-artifact
+                mv .next/standalone/* prd-artifact
             
-            - name: Upload production artifacts
+            - name: Upload standalone artifacts
               uses: actions/upload-artifact@v4.4.0
               with:
-                name: karting-website-prd-artifact
+                name: karting-website-standalone
                 path: ./prd-artifact
                 if-no-files-found: error
                 overwrite: true
@@ -55,8 +55,7 @@ jobs:
             - name: Obtain production artifact
               uses: actions/download-artifact@v4.1.8
               with:
-                name: karting-website-prd-artifact
-                pattern: prd-artifact/standalone/*
+                name: karting-website-standalone
 
             - name: List files
               run: ls -la
