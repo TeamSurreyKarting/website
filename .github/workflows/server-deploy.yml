@@ -1,7 +1,7 @@
-# name: Deploy to Azure VM
+name: Deploy to Azure VM
 
-# on:
-#     workflow_dispatch:
+on:
+    workflow_dispatch:
 #     # push:
 #     #     branches:
 #     #         - main
@@ -14,7 +14,7 @@
 #     group: deploy-${{ github.ref }}
 #     cancel-in-progress: true
 
-# jobs:
+jobs:
 #     build:
 #         # if: github.event_name == 'workflow_dispatch' || github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
 #         runs-on: ubuntu-latest

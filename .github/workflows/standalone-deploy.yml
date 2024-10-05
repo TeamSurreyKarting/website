@@ -35,16 +35,19 @@ jobs:
             - name: Build
               run: yarn build:standalone
 
-            - name: Move standalone build items for artifacting
-              run: |
-                mkdir prd-artifact
-                mv .next/standalone/* prd-artifact
+            # - name: Move standalone build items for artifacting
+            #   run: |
+            #     mkdir prd-artifact
+            #     mv .next/standalone/* prd-artifact
+
+            - name: List artifacts
+              run: ls -la ./.next/standalone
             
             - name: Upload artifacts
               uses: actions/upload-artifact@v4.4.0
               with:
                 name: karting-website-build
-                path: ./prd-artifact
+                path: ./.next/standalone
                 if-no-files-found: error
                 include-hidden-files: true
                 overwrite: true
@@ -58,6 +61,9 @@ jobs:
               uses: actions/download-artifact@v4.1.8
               with:
                 name: karting-website-build
+
+            - name: List artifacts
+              run: ls -la .
 
             - name: Copy artifact to server
               uses: appleboy/scp-action@v0.1.7
