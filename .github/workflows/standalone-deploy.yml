@@ -113,7 +113,7 @@ jobs:
                     sudo mkdir -p /srv/www
                     sudo mv -f ~/www/* /srv/www
                     sudo mv -f ~/www/.env /srv/www/.env
-                    sudo mv -f ~/www/.next /srv/www/.next
+                    sudo mv -f ~/www/.next /srv/www/
                     sudo rm -r ~/www
 
             - name: Restart nextjs process
