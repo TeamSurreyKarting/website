@@ -83,8 +83,7 @@ jobs:
                     NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
                     NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
                     NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY }}
-                    PROJECT_ID=${{ secrets.SUPABASE_PROJECT_ID }}
-                    " > ~/www/.env
+                    PROJECT_ID=${{ secrets.SUPABASE_PROJECT_ID }}" > ~/www/.env
 
             - name: List copied files
               uses: appleboy/ssh-action@v1.0.3
@@ -119,7 +118,7 @@ jobs:
                 username: azureuser
                 port: 22
                 script: |
-                  pm2 start "node /srv/www/server.js" --name "nextjs"
+                  pm2 restart --update-env "nextjs"
 
     close_pr:
         needs: build
