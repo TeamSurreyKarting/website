@@ -35,11 +35,6 @@ jobs:
             - name: Build
               run: yarn build:standalone
 
-            # - name: Move standalone build items for artifacting
-            #   run: |
-            #     mkdir prd-artifact
-            #     mv .next/standalone/* prd-artifact
-
             - name: List artifacts
               run: ls -la ./.next/standalone
             
@@ -85,9 +80,9 @@ jobs:
                 port: 22
                 script: |
                     sudo echo "
-                    NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }};
-                    NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }};
-                    NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY }};
+                    NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+                    NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+                    NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY }}
                     PROJECT_ID=${{ secrets.SUPABASE_PROJECT_ID }}
                     " > ~/www/.env
 
