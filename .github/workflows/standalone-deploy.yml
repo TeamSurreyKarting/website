@@ -84,7 +84,12 @@ jobs:
                 username: azureuser
                 port: 22
                 script: |
-                    sudo echo "NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }};NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }};NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY }};PROJECT_ID=${{ secrets.SUPABASE_PROJECT_ID }}" > ~/www/.env
+                    sudo echo "
+                    NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }};
+                    NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }};
+                    NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY }};
+                    PROJECT_ID=${{ secrets.SUPABASE_PROJECT_ID }}
+                    " > ~/www/.env
 
             - name: List copied files
               uses: appleboy/ssh-action@v1.0.3
