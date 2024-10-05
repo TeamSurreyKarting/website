@@ -35,6 +35,7 @@ export async function updateSession(request: NextRequest) {
         data: { user },
       } = await supabase.auth.getUser()
 
+    // If there is no user and an auth or admin route is hit, redirect to login
     if (
         !user && (
             request.nextUrl.pathname === '/auth' ||
@@ -46,6 +47,28 @@ export async function updateSession(request: NextRequest) {
         url.pathname = '/auth/login'
         return NextResponse.redirect(url)
     }
+
+    // If an admin route is hit, ensure the user is an admin
+    if (request.nextUrl.pathname.startsWith('/admin')) {
+        // if (!user) {
+        //     const url = request.nextUrl.clone()
+        //     url.pathname = '/auth/login'
+        //     return NextResponse.redirect
+        // }
+
+        // const { error: isAdminCheckError } = await supabase.from('AdminUser').select('*', { count: 'exact' }).eq('user', user.id).single();
+
+        // if (isAdminCheckError) {
+        //     console.log('Error checking if user is admin:', isAdminCheckError)
+        //     const url = request.nextUrl.clone()
+        //     url.pathname = '/auth/login'
+        //     return NextResponse.redirect(url)
+        // }
+
+        console.log('user:', user)
+    }
+
+
 
     // IMPORTANT: You *must* return the supabaseResponse object as it is. If you're
     // creating a new response object with NextResponse.next() make sure to:
@@ -62,4 +85,3 @@ export async function updateSession(request: NextRequest) {
 
     return supabaseResponse
 }
-
