@@ -1,18 +1,18 @@
 name: Deploy to Azure VM
 
 on:
-  workflow_dispatch:
-  push:
-    branches:
-      - main
-  pull_request:
-    types: [opened, synchronize, reopened, closed]
-    branches:
-      - main
+    workflow_dispatch:
+    push:
+        branches:
+            - main
+    pull_request:
+        types: [opened, synchronize, reopened, closed]
+        branches:
+            - main
 
 concurrency:
-  group: deploy-${{ github.ref }}
-  cancel-in-progress: true
+    group: deploy-${{ github.ref }}
+    cancel-in-progress: true
 
 jobs:
     build:
@@ -89,8 +89,8 @@ jobs:
                 username: azureuser
                 port: 22
                 script: |
-                    sudo mv -rf ~/www/* /srv/www
-                    sudo rm -rf ~/www
+                    sudo mv -f ~/www/* /srv/www
+                    sudo rm -r ~/www
 
             - name: Restart nextjs process
               uses: appleboy/ssh-action@v1.0.3
