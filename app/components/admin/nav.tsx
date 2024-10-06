@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import NavLinks from '@/app/components/admin/navlinks';
-import SignOutButton from './SignOutButton';
+import AccountButton from './AccountButton';
 
 export default function Nav() {
   return (
@@ -12,7 +12,7 @@ export default function Nav() {
         </Link>
         <NavLinks />
         <div className="hidden md:block h-auto w-full grow rounded-md bg-none"></div>
-        <SignOutButton />
+        <AccountButton />
       </div>
     </div>
   );

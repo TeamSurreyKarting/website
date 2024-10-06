@@ -33,8 +33,13 @@ const links = [
         icon: FaThList,
     },
     {
-        name: 'Admin Users',
-        href: '/admin/admin-users',
+        name: '<blank>',
+        href: '/admin/<blank>',
+        icon: null,
+    },
+    {
+        name: 'Users',
+        href: '/admin/users',
         icon: FaUser,
     },
     // {
@@ -49,7 +54,13 @@ export default function NavLinks() {
   return (
     <>
       {links.map((link) => {
-        const LinkIcon = link.icon;
+        if (link.name === '<blank>') {
+          return (
+            <div key={link.name} className="h-4"></div>
+          );
+        }
+
+        const LinkIcon = link.icon!;
 
         const isCurrentPath = pathname === link.href;
         const containsCurrentPath = (pathname.startsWith(link.href) && link.href !== '/admin') || (link.href === '/admin' && pathname === link.href);
