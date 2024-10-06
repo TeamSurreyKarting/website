@@ -17,6 +17,7 @@ export default function Error({
         <div className="w-full h-full bg-nile-blue-900 rounded-xl p-4 flex flex-col items-center justify-center">
             <h1 className="text-2xl font-bold">Error</h1>
             <p>Something went wrong...</p>
+            <p>{error.message}</p>
         </div>
     );
 }
