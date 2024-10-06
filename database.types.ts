@@ -9,6 +9,36 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      AdminUser: {
+        Row: {
+          id: number
+          user: string
+        }
+        Insert: {
+          id?: number
+          user: string
+        }
+        Update: {
+          id?: number
+          user?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "Admin_user_fkey"
+            columns: ["user"]
+            isOneToOne: false
+            referencedRelation: "racer_users"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "Admin_user_fkey"
+            columns: ["user"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       League: {
         Row: {
           created_at: string
@@ -62,6 +92,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "League"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "LeagueEntrant_racer_id_fkey"
+            columns: ["racer_id"]
+            isOneToOne: false
+            referencedRelation: "racer_users"
+            referencedColumns: ["racer_id"]
           },
           {
             foreignKeyName: "LeagueEntrant_racer_id_fkey"
@@ -183,6 +220,13 @@ export type Database = {
             foreignKeyName: "RaceEventSessionResult_racer_id_fkey"
             columns: ["racer_id"]
             isOneToOne: false
+            referencedRelation: "racer_users"
+            referencedColumns: ["racer_id"]
+          },
+          {
+            foreignKeyName: "RaceEventSessionResult_racer_id_fkey"
+            columns: ["racer_id"]
+            isOneToOne: false
             referencedRelation: "Racers"
             referencedColumns: ["id"]
           },
@@ -211,6 +255,13 @@ export type Database = {
           valid_until?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "RaceLicenses_racer_id_fkey"
+            columns: ["racer_id"]
+            isOneToOne: false
+            referencedRelation: "racer_users"
+            referencedColumns: ["racer_id"]
+          },
           {
             foreignKeyName: "RaceLicenses_racer_id_fkey"
             columns: ["racer_id"]
@@ -256,6 +307,13 @@ export type Database = {
             foreignKeyName: "racers_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
+            referencedRelation: "racer_users"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "racers_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
           },
@@ -287,7 +345,14 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      racer_users: {
+        Row: {
+          email: string | null
+          racer_id: number | null
+          user_id: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       get_fastest_laps: {
@@ -312,6 +377,18 @@ export type Database = {
           enum_type: string
         }
         Returns: Json
+      }
+      racer_exists: {
+        Args: {
+          user_email: string
+        }
+        Returns: boolean
+      }
+      racer_exists_by_email: {
+        Args: {
+          email_input: string
+        }
+        Returns: boolean
       }
       racers_not_league_entrants: {
         Args: {
