@@ -22,11 +22,16 @@ export async function createRacer(formData: FormData) {
     const supabase = createServiceClient();
 
     const email = formData.get("email") as string;
+    const firstName = formData.get("firstName") as string;
+    const lastName = formData.get("lastName") as string;
     
     // Create user in supabase and send invite email
-    const { data, error } = await supabase.auth.admin.createUser({
-        email: email,
-        email_confirm: true,
+    const { data, error } = await supabase.auth.admin.inviteUserByEmail(email, {
+        data: {
+            first_name: firstName,
+            last_name: lastName
+        },
+        redirectTo: "/"
     });
 
     // check for errors
@@ -41,8 +46,6 @@ export async function createRacer(formData: FormData) {
 
     // Create racer in database
     const userId = data.user.id;
-    const firstName = formData.get("firstName") as string;
-    const lastName = formData.get("lastName") as string;
     const studentIdExpiry = formData.get("studentIdExpiry") as string;
     const experienceLevel = formData.get("experienceLevel") as string;
 
