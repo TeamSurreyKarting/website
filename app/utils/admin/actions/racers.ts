@@ -22,25 +22,45 @@ export async function createRacer(formData: FormData) {
     const supabase = createServiceClient();
 
     const email = formData.get("email") as string;
-    
-    // Create user in supabase and send invite email
-    const { data, error } = await supabase.auth.admin.createUser({
-        email: email,
-        email_confirm: true,
-    });
 
-    // check for errors
-    if (error) {
-        throw error;
+    // Determine if user already exists
+    const { data: userExistsQueryResult, error: userExistsQueryError } = await supabase.rpc('racer_exists', { user_email: email });
+    if (userExistsQueryError) throw userExistsQueryError;
+    const userExists = userExistsQueryResult;
+
+    var userId = null;
+
+    if (!userExists) {
+        
+        // Create user in supabase and send invite email
+        const { data, error } = await supabase.auth.admin.createUser({
+            email: email,
+            email_confirm: true,
+        });
+
+        // check for errors
+        if (error) {
+            throw error;
+        }
+
+        // check that data is not null
+        if (!data) {
+            throw new Error("No data returned from createUser");
+        }
+
+        userId = data.user.id;
+    } else {
+        // Fetch user from supabase based on email
+        const { data: userQueryResult, error: userQueryError } = await supabase.schema("auth").from("Users").select("id").eq("email", email).single();
+        if (userQueryError) throw userQueryError;
+        userId = userQueryResult.id;
     }
 
-    // check that data is not null
-    if (!data) {
-        throw new Error("No data returned from createUser");
+    if (!userId) {
+        throw new Error("No user ID found. This should not happen.");
     }
 
     // Create racer in database
-    const userId = data.user.id;
     const firstName = formData.get("firstName") as string;
     const lastName = formData.get("lastName") as string;
     const studentIdExpiry = formData.get("studentIdExpiry") as string;
