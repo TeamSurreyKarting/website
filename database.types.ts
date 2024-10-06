@@ -34,7 +34,7 @@ export type Database = {
   }
   public: {
     Tables: {
-      Admin: {
+      AdminUser: {
         Row: {
           id: number
           user: string
