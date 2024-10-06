@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
 import IconBUKC from "@/app/components/icons/BUKC";
+import { FaUser } from "react-icons/fa6";
 
 // Map of links to display in the side navigation.
 // Depending on the size of the application, this would be stored in a database.
@@ -30,6 +31,11 @@ const links = [
         name: 'Leagues',
         href: '/admin/leagues',
         icon: FaThList,
+    },
+    {
+        name: 'Admin Users',
+        href: '/admin/admin-users',
+        icon: FaUser,
     },
     // {
     //   name: 'BUKC',
