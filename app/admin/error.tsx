@@ -12,10 +12,10 @@ export default function Error({
     useEffect(() => {
         console.error(error);
     }, [error]);
-    
+
     return (
-        <div>
-            <h1>Error</h1>
+        <div className="w-full h-full bg-nile-blue-900 rounded-xl p-4 flex flex-col items-center justify-center">
+            <h1 className="text-2xl font-bold">Error</h1>
             <p>Something went wrong...</p>
         </div>
     );
