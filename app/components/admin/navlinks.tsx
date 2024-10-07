@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
 import IconBUKC from "@/app/components/icons/BUKC";
+import { FaUser } from "react-icons/fa6";
 
 // Map of links to display in the side navigation.
 // Depending on the size of the application, this would be stored in a database.
@@ -31,6 +32,16 @@ const links = [
         href: '/admin/leagues',
         icon: FaThList,
     },
+    {
+        name: '<blank>',
+        href: '/admin/<blank>',
+        icon: null,
+    },
+    {
+        name: 'Users',
+        href: '/admin/users',
+        icon: FaUser,
+    },
     // {
     //   name: 'BUKC',
     //   href: '/admin/bukc',
@@ -43,7 +54,13 @@ export default function NavLinks() {
   return (
     <>
       {links.map((link) => {
-        const LinkIcon = link.icon;
+        if (link.name === '<blank>') {
+          return (
+            <div key={link.name} className="h-4"></div>
+          );
+        }
+
+        const LinkIcon = link.icon!;
 
         const isCurrentPath = pathname === link.href;
         const containsCurrentPath = (pathname.startsWith(link.href) && link.href !== '/admin') || (link.href === '/admin' && pathname === link.href);
