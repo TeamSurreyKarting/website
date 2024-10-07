@@ -43,6 +43,9 @@ jobs:
             - name: Build
               run: yarn build:standalone
 
+            - name: Delete .env file
+              run: rm .env
+
             - name: List artifacts
               run: ls -la ./.next/standalone
             
