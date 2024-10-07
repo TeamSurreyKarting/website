@@ -23,7 +23,7 @@ export default function Page({ params }: { params: { userId: string } }) {
                 <Suspense fallback={<div>Loading...</div>}>
                     <UserList userId={params.userId} />
                 </Suspense>
-                <div className={"rounded-xl bg-nile-blue-800 grid grid-rows-[auto_1fr] gap-2 p-4 text-gray-200"}>
+                <div className={"order-first md:order-last rounded-xl bg-nile-blue-800 grid grid-rows-[auto_1fr] gap-2 p-4 text-gray-200"}>
                     <Suspense fallback={<div>Loading...</div>}>
                         <UserDetails userId={params.userId} />
                     </Suspense>
