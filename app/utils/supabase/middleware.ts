@@ -34,6 +34,7 @@ export async function updateSession(request: NextRequest) {
     const {
         data: { user },
       } = await supabase.auth.getUser()
+    
 
     // If there is no user and an auth or admin route is hit, redirect to login
     if (
@@ -43,30 +44,47 @@ export async function updateSession(request: NextRequest) {
         )
       ) {
         // no user, potentially respond by redirecting the user to the login page
-        const url = request.nextUrl.clone()
-        url.pathname = '/auth/login'
-        return NextResponse.redirect(url)
+        console.log('No user, redirecting to login')
+        return redirectToLogin(request);
     }
+
+    // If the auth login route is hit and the user is already logged in, redirect
+    if (request.nextUrl.pathname === '/auth/login' && user) {
+        const isUserAdmin = user?.app_metadata?.is_admin === true;
+
+        if (isUserAdmin) {
+            // redirect to admin dashboard
+            console.log('User is an admin, redirecting to admin dashboard: ', user);
+            const url = request.nextUrl.clone();
+            url.pathname = '/admin';
+            return NextResponse.redirect(url);
+        } else {
+            // redirect to user dashboard
+            console.log('User is not an admin, redirecting to user dashboard: ', user);
+            const url = request.nextUrl.clone();
+            // url.pathname = '/profile';
+            url.pathname = '/';
+            return NextResponse.redirect(url);
+        }
+    }
+
+    // console.log("\nNew Request");
+    // console.log('User: ', user);
+    // console.log('request.nextUrl.pathname: ', request.nextUrl.pathname);
+    // console.log('user !== null: ', user !== null);
+    // console.log('path starts with /admin: ', request.nextUrl.pathname.startsWith('/admin'));
 
     // If an admin route is hit, ensure the user is an admin
-    if (request.nextUrl.pathname.startsWith('/admin')) {
-        // if (!user) {
-        //     const url = request.nextUrl.clone()
-        //     url.pathname = '/auth/login'
-        //     return NextResponse.redirect
-        // }
+    if (user && request.nextUrl.pathname.startsWith('/admin')) {
+        const isUserAdmin = user?.app_metadata?.is_admin === true;
 
-        // const { error: isAdminCheckError } = await supabase.from('AdminUser').select('*', { count: 'exact' }).eq('user', user.id).single();
-
-        // if (isAdminCheckError) {
-        //     console.log('Error checking if user is admin:', isAdminCheckError)
-        //     const url = request.nextUrl.clone()
-        //     url.pathname = '/auth/login'
-        //     return NextResponse.redirect(url)
-        // }
-
-        console.log('user:', user)
+        if (!isUserAdmin) {
+            console.log('User is not an admin, redirecting to login: ', user);
+            redirectToLogin(request);
+        }
     }
+
+
 
 
 
@@ -84,4 +102,10 @@ export async function updateSession(request: NextRequest) {
     // of sync and terminate the user's session prematurely!
 
     return supabaseResponse
+}
+
+function redirectToLogin(request: NextRequest) {
+    const url = request.nextUrl.clone()
+    url.pathname = '/auth/login'
+    return NextResponse.redirect(url);
 }
