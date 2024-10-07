@@ -65,7 +65,7 @@ export default function LoginPage() {
                         </div>
                         {isLoading && <p className="mb-4 text-lightning-gold-600"><AiOutlineLoading className="animate-spin" /></p>}
                         {(!isLoading && error) && <p className="mb-4 text-red-500">{error}</p>}
-                        <button className="bg-lightning-gold-600 w-full px-4 py-2 rounded-lg">Log in</button>
+                        {!isLoading && <button className="bg-lightning-gold-600 w-full px-4 py-2 rounded-lg">Log in</button>}
                     </form>
                 </div>
             </div>
