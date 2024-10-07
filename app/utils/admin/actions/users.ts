@@ -81,3 +81,32 @@ export async function requestPasswordReset(email: string) {
         throw error;
     }
 }
+
+export async function createUser(formData: FormData) {
+    // init supabase
+    const supabase = createServiceClient();
+
+    const email = formData.get("email") as string;
+    const firstName = formData.get("firstName") as string;
+    const lastName = formData.get("lastName") as string;
+
+    // create user
+    const { data, error } = await supabase.auth.signUp({
+        email: email,
+        password: "password",
+        options: {
+            data: {
+                first_name: firstName,
+                last_name: lastName
+            }
+        }
+    });
+
+    // check for errors
+    if (error) {
+        throw error;
+    }
+
+    revalidatePath(`/admin/users/${data.user?.id}`);
+    redirect(`/admin/users/${data.user?.id}`);
+}
