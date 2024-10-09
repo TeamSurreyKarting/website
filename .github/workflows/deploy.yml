@@ -37,7 +37,7 @@ jobs:
                 sudo echo "NODE_ENV=production
                 NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
                 NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-                NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY }}
+                SUPABASE_SERVICE_ROLE_KEY=${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
                 PROJECT_ID=${{ secrets.SUPABASE_PROJECT_ID }}" > .env
 
             - name: Build
@@ -93,7 +93,7 @@ jobs:
                     sudo echo "NODE_ENV=production
                     NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
                     NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-                    NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY }}
+                    SUPABASE_SERVICE_ROLE_KEY=${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
                     PROJECT_ID=${{ secrets.SUPABASE_PROJECT_ID }}" > ~/www/.env
 
             - name: List copied files
