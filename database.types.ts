@@ -12,18 +12,21 @@ export type Database = {
       Racers: {
         Row: {
           firstName: string
+          fullName: string | null
           graduationDate: string | null
           id: string
           lastName: string
         }
         Insert: {
           firstName: string
+          fullName?: string | null
           graduationDate?: string | null
           id: string
           lastName: string
         }
         Update: {
           firstName?: string
+          fullName?: string | null
           graduationDate?: string | null
           id?: string
           lastName?: string
@@ -56,7 +59,18 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      RacerDetails: {
+        Row: {
+          email: string | null
+          firstName: string | null
+          fullName: string | null
+          graduationDate: string | null
+          id: string | null
+          last_sign_in_at: string | null
+          lastName: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       get_fastest_laps: {
