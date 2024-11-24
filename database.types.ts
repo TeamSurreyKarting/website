@@ -9,6 +9,76 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      Members: {
+        Row: {
+          added_at: string
+          added_by: string
+          id: number
+          membership: string | null
+          racer: string
+        }
+        Insert: {
+          added_at?: string
+          added_by: string
+          id?: number
+          membership?: string | null
+          racer: string
+        }
+        Update: {
+          added_at?: string
+          added_by?: string
+          id?: number
+          membership?: string | null
+          racer?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "Members_membership_fkey"
+            columns: ["membership"]
+            isOneToOne: false
+            referencedRelation: "MembershipTypes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "Members_racer_fkey"
+            columns: ["racer"]
+            isOneToOne: false
+            referencedRelation: "RacerDetails"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "Members_racer_fkey"
+            columns: ["racer"]
+            isOneToOne: false
+            referencedRelation: "Racers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      MembershipTypes: {
+        Row: {
+          id: string
+          name: string
+          price: number
+          validFrom: string
+          validUntil: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          price: number
+          validFrom: string
+          validUntil: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          price?: number
+          validFrom?: string
+          validUntil?: string
+        }
+        Relationships: []
+      }
       Racers: {
         Row: {
           firstName: string
